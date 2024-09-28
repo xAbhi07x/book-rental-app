@@ -16,10 +16,10 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, "public"))); 
 app.use(express.urlencoded({ extended: true }));
 
-// const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/library'
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/library'
 
 // MongoDB Connection
-mongoose.connect('mongodb://localhost:27017/library')
+mongoose.connect('mongodb://mongo:GrXavKenQaCjGtiFtIOtoOIrPYiFlgPi@junction.proxy.rlwy.net:53375')
 .then(() => {
     console.log("Connected to MongoDB.");
     // Run the seed function after successful DB connection
