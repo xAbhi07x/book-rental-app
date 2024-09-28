@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Books</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="container mx-auto p-5">
+    <header class="text-center mb-10">
+      <h1 class="text-3xl font-bold">Search Books by Name</h1>
+      <nav class="mt-4">
+        <a href="/books/rent" class="mx-2 text-blue-500 hover:underline">Filter Books</a>
+      </nav>
+    </header>
+
+    <form action="/books/search" method="GET" class="mb-5">
+      <label for="name" class="block mb-2 text-lg">Book Name:</label>
+      <input type="text" id="name" name="name" required class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+      <button type="submit" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Search</button>
+    </form>
+
+    <% if (books && books.length > 0) { %>
+      <h2 class="text-2xl font-semibold mb-4">Results:</h2>
+      <ul class="space-y-4">
+        <% books.forEach(book => { %>
+          <li class="bg-white rounded-lg shadow p-4">
+            <strong class="text-xl"><%= book.bookName %></strong>
+            <p class="text-gray-600">Category: <%= book.category %></p>
+            <p class="text-gray-600">Rent: $<%= book.rentPerDay %> per day</p>
+          </li>
+        <% }); %>
+      </ul>
+    <% } else if (books) { %>
+      <p class="mt-4 text-gray-600">No books found.</p>
+    <% } %>
+  </div>
+</body>
+</html>

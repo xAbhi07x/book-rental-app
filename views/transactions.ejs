@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Page</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto p-5">
+        <header class="text-center mb-10">
+            <h1 class="text-3xl font-bold">Transactions</h1>
+        </header>
+
+        <section class="mb-10">
+            <h2 class="text-2xl font-semibold mb-4">Issue a Book</h2>
+            <form action="/transactions/issue" method="POST" class="space-y-4">
+                <input type="text" name="bookName" placeholder="Book Name" required class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+                <input type="text" name="userId" placeholder="User ID" required class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+                <input type="date" name="issueDate" required class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Issue Book</button>
+            </form>
+        </section>
+
+        <section class="mb-10">
+            <h2 class="text-2xl font-semibold mb-4">Return a Book</h2>
+            <form action="/transactions/return" method="POST" class="space-y-4">
+                <input type="text" name="bookName" placeholder="Book Name" required class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+                <input type="text" name="userId" placeholder="User ID" required class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+                <input type="date" name="returnDate" required class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Return Book</button>
+            </form>
+        </section>
+
+        <section class="mb-10">
+            <h2 class="text-2xl font-semibold mb-4">Book History</h2>
+            <form action="/transactions/book-history" method="GET" class="space-y-4">
+                <input type="text" name="bookName" placeholder="Book Name" required class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Get Book History</button>
+            </form>
+        </section>
+
+        <section class="mb-10">
+            <h2 class="text-2xl font-semibold mb-4">Total Rent Generated</h2>
+            <form action="/transactions/book-rent" method="GET" class="space-y-4">
+                <input type="text" name="bookName" placeholder="Book Name" required class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Get Total Rent</button>
+            </form>
+        </section>
+
+        <section class="mb-10">
+            <h2 class="text-2xl font-semibold mb-4">Books Issued to a User</h2>
+            <form action="/transactions/user-books" method="GET" class="space-y-4">
+                <input type="text" name="userId" placeholder="User ID" required class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Get User Books</button>
+            </form>
+        </section>
+
+        <!-- Display Responses -->
+        <div class="mt-5">
+            <% if (transactionResponse) { %>
+                <p class="text-green-600"><%= transactionResponse.message %></p>
+            <% } %>
+            <% if (historyResponse) { %>
+                <h3 class="text-xl font-semibold">History:</h3>
+                <p><strong>Total Count:</strong> <%= historyResponse.totalCount %></p>
+                <% if (historyResponse.currentlyIssued) { %>
+                    <div class="bg-white rounded-lg shadow p-4 mt-2">
+                        <p><strong>Name:</strong> <%= historyResponse.currentlyIssued.name %></p>
+                        <p><strong>Email:</strong> <%= historyResponse.currentlyIssued.email %></p>
+                        <p><strong>Phone:</strong> <%= historyResponse.currentlyIssued.phone %></p>
+                    </div>
+                <% } %>
+            <% } %>
+            <% if (totalRentResponse) { %>
+                <p class="text-gray-600">Total Rent: $<%= totalRentResponse.totalRent %></p>
+            <% } %>
+            <% if (issuedBooksResponse) { %>
+                <p class="text-gray-600">Books Issued: <%= issuedBooksResponse.join(', ') %></p>
+            <% } %>
+        </div>
+        
+    </div>
+</body>
+</html>

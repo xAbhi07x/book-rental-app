@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filter Books</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="container mx-auto p-5">
+    <header class="text-center mb-10">
+      <h1 class="text-3xl font-bold">Filter Books by Rent Range</h1>
+    </header>
+
+    <form action="/books/rent/filter" method="GET" class="mb-10">
+      <label for="min" class="block mb-2 text-lg">Min Rent:</label>
+      <input type="number" id="min" name="min" required class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+      
+      <label for="max" class="block mb-2 text-lg mt-4">Max Rent:</label>
+      <input type="number" id="max" name="max" required class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+      
+      <button type="submit" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Filter</button>
+    </form>
+
+    <% if (books) { %>
+      <% if (books.length > 0) { %>
+        <h2 class="text-2xl font-semibold mb-4">Basic Filter Results (Rent Range):</h2>
+        <ul class="space-y-4">
+          <% books.forEach(book => { %>
+            <li class="bg-white rounded-lg shadow p-4">
+              <strong class="text-xl"><%= book.bookName %></strong>
+              <p class="text-gray-600">Category: <%= book.category %></p>
+              <p class="text-gray-600">Rent: $<%= book.rentPerDay %> per day</p>
+            </li>
+          <% }); %>
+        </ul>
+      <% } else { %>
+        <p class="mt-4 text-gray-600">No books found in this rent range.</p>
+      <% } %>
+    <% } %>
+
+    <header class="text-center mt-10 mb-5">
+      <h1 class="text-3xl font-bold">Advanced Book Filter</h1>
+    </header>
+
+    <form action="/books/filter" method="GET" class="mb-10">
+      <label for="category" class="block mb-2 text-lg">Category:</label>
+      <input type="text" id="category" name="category" required class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+
+      <label for="name" class="block mb-2 text-lg mt-4">Book Name/Term:</label>
+      <input type="text" id="name" name="name" required class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+
+      <label for="minRent" class="block mb-2 text-lg mt-4">Min Rent:</label>
+      <input type="number" id="minRent" name="minRent" required class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+
+      <label for="maxRent" class="block mb-2 text-lg mt-4">Max Rent:</label>
+      <input type="number" id="maxRent" name="maxRent" required class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500">
+
+      <button type="submit" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Filter</button>
+    </form>
+
+    <% if (advancedBooks) { %>
+      <% if (advancedBooks.length > 0) { %>
+        <h2 class="text-2xl font-semibold mb-4">Advanced Filter Results:</h2>
+        <ul class="space-y-4">
+          <% advancedBooks.forEach(book => { %>
+            <li class="bg-white rounded-lg shadow p-4">
+              <strong class="text-xl"><%= book.bookName %></strong>
+              <p class="text-gray-600">Category: <%= book.category %></p>
+              <p class="text-gray-600">Rent: $<%= book.rentPerDay %> per day</p>
+            </li>
+          <% }); %>
+        </ul>
+      <% } else { %>
+        <p class="mt-4 text-gray-600">No books match the advanced filter criteria.</p>
+      <% } %>
+    <% } %>
+  </div>
+</body>
+</html>

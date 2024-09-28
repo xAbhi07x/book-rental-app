@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="container mx-auto p-5">
+    <header class="mb-10 text-center">
+      <h1 class="text-3xl font-bold">Welcome to the Library</h1>
+      <nav class="mt-4">
+        <a href="/books/search" class="mx-2 text-blue-500 hover:underline">Search Books</a>
+        <a href="/transactions" class="mx-2 text-blue-500 hover:underline">Transactions</a>
+        <a href="/users" class="mx-2 text-blue-500 hover:underline">users</a>
+      </nav>
+    </header>
+
+    <main>
+      <h2 class="text-2xl font-semibold mb-5">Available Books</h2>
+      <ul class="space-y-4">
+        <% books.forEach(book => { %>
+          <li class="bg-white rounded-lg shadow p-4 hover:shadow-lg transition">
+            <strong class="text-xl"><%= book.bookName %></strong>
+            <p class="text-gray-600">Category: <%= book.category %></p>
+            <p class="text-gray-600">Rent per Day: $<%= book.rentPerDay %></p>
+            <a href="/books/<%= book._id %>" class="text-blue-500 hover:underline">View Details</a>
+          </li>
+        <% }) %>
+      </ul>
+    </main>
+  </div>
+</body>
+</html>
